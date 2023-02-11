@@ -7,56 +7,146 @@ var generateBtn = document.querySelector("#generate"); //button
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  var passwordText = document.querySelector("#password"); //where password is diplayed
+  var passwordText = document.querySelector("#password"); //where password is displayed
 
   passwordText.value = password;
 
 }
-
+// Creates password that will be printed to screen in #password
 function generatePassword() {
 
-
-  let numChoice = function () {
+  //Function to insure the acceptable range of character count was chosen
+  let numChoice = 0;
+  let pwLength = function () {
     let characterNum = prompt("Please enter a Password length (number between 8-128).");
     if (characterNum < 8 || characterNum > 128) {
       alert("Character count MUST be between 8 and 128, inclusive");
+      return pwLength();
 
     }
-    return;
-  }
-  numChoice();
-  //(proves that typing number in prompt and clicking "okay", your choice is stored in characterNum)
-  //return characterNum;
+    numChoice = characterNum;
+
+  };
+  pwLength();
+
+  //Pop-up to confirm character choices
   let lowerCase = confirm("Lower case characters?");
   let upperCase = confirm("Upper case characters?");
   let numericChar = confirm("Numeric characters?");
   let specialChar = confirm("Special characters?");
 
-  //a way to collect data sets of each character type (into an array)
+  //arrays to collect data sets of each character type 
   let numSet = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   let lowerSet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   let upperSet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-  let specialSet = ['!', 'x22', '#', '$', '%', '&', 'x27', '()', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '/', ']', '^', '_', "'", '{', '|', '}', '~']
+  let specialSet = ['!', "\"", '#', '$', '%', '&', "\'", '()', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '/', ']', '^', '_', "'", '{', '|', '}', '~']
 
-  //concatenate these datasets
-  const allSets = numSet.concat(lowerSet, upperSet, specialSet);
+  //decern which arrays were chosen when all character types are chosen
 
-  //identify which of those characters were selected in <confirm>
-  //characterNum needs to be retrieved to build the proper length pw
+  if (
+    lowerCase === true &&
+    upperCase === true &&
+    numericChar === true &&
+    specialChar === true
+  ) {
+    //concatenate these datasets
+    allChars = numSet.concat(lowerSet, upperSet, specialSet);
 
 
-  //identify how many characters were chosen (build password one character at a time using for loop)
-  //randomly select that amount of characters from the data sets (math.random)
-  //use RETURN state to automatically push 'password' into view area  
+    //set an empty array to receive random set
+    randomChars = [];
+
+    //loop through randomly selected data set the amount entered by user into Password Length field
+    for (let i = 1; i <= numChoice; i++) {
+      let randomIndex = Math.floor(Math.random() * allChars.length);
+      randomChars.push(allChars.splice(randomIndex, 1)[0]);
+      password = randomChars.join('');
+      console.log(randomChars.join(''))
+    }
+    return (password);
+    // next case when lowerCase not selected
+  } else if (
+    !lowerCase === true &&
+    upperCase === true &&
+    numericChar === true &&
+    specialChar === true
+  ) {
+    //concatenate these datasets
+    allChars = numSet.concat(upperSet, specialSet);
+    console.log(allChars);
+    //set an empty array to receive random set
+    randomChars = [];
+
+    //loop through randomly selected data set the amount entered by user into Password Length field
+    for (let i = 1; i <= numChoice; i++) {
+      let randomIndex = Math.floor(Math.random() * allChars.length);
+      randomChars.push(allChars.splice(randomIndex, 1)[0]);
+      password = randomChars.join('');
+      console.log(randomChars.join(''))
+    }
+    return (password);
+    // next case when upperCase not selected
+  } else if (
+    lowerCase === true &&
+    !upperCase === true &&
+    numericChar === true &&
+    specialChar === true
+  ) {
+    //concatenate these datasets
+    allChars = numSet.concat(lowerSet, specialSet);
+    console.log(allChars);
+    //set an empty array to receive random set
+    randomChars = [];
+
+    //loop through randomly selected data set the amount entered by user into Password Length field
+    for (let i = 1; i <= numChoice; i++) {
+      let randomIndex = Math.floor(Math.random() * allChars.length);
+      randomChars.push(allChars.splice(randomIndex, 1)[0]);
+      password = randomChars.join('');
+      console.log(randomChars.join(''))
+    }
+    return (password);
+    // next case when specialChar not selected
+  } else if (
+    lowerCase === true &&
+    upperCase === true &&
+    numericChar === true &&
+    !specialChar === true
+  ) {
+    //concatenate these datasets
+    allChars = numSet.concat(lowerSet, upperSet);
+    console.log(allChars);
+    //set an empty array to receive random set
+    randomChars = [];
+
+    //loop through randomly selected data set the amount entered by user into Password Length field
+    for (let i = 1; i <= numChoice; i++) {
+      let randomIndex = Math.floor(Math.random() * allChars.length);
+      randomChars.push(allChars.splice(randomIndex, 1)[0]);
+      password = randomChars.join('');
+      console.log(randomChars.join(''))
+    }
+    return (password);
+    // final case when numericChar not selected
+  } else {
+    //concatenate these datasets
+    allChars = specialSet.concat(lowerSet, upperSet);
+    console.log(allChars);
+    //set an empty array to receive random set
+    randomChars = [];
+
+    //loop through randomly selected data set the amount entered by user into Password Length field
+    for (let i = 1; i <= numChoice; i++) {
+      let randomIndex = Math.floor(Math.random() * allChars.length);
+      randomChars.push(allChars.splice(randomIndex, 1)[0]);
+      password = randomChars.join('');
+      console.log(randomChars.join(''))
+    }
+    return (password);
+  }
 }
-// Add event listener to generate button
+
+// Initiates writePassword function
 generateBtn.addEventListener("click", writePassword);
 
-// create varible as an empty container to hold generated password (done)
-// create function to generate password through collecting data from a series of prompts
-  // promt: pw length (8-128 characters; inclusive)
-  // prompt: character types (lowercase, uppercase, numeric, and/or special characters)
-    // each input is validated
-      // at least one character type must be chosen
-      // none chosen? error message and start-over/exit popup
 
